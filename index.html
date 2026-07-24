@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXTIME | Inicio</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 50px; }
+        .logo { color: #d4af37; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #d4af37; }
+        
+        .hero { height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle, rgba(26,26,32,1) 0%, rgba(11,11,13,1) 100%); padding: 0 20px; margin-top: 60px; }
+        .hero h1 { font-size: 3.5rem; color: #d4af37; letter-spacing: 6px; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; color: #a8a8b3; max-width: 600px; margin-bottom: 30px; }
+        .btn-hero { padding: 12px 30px; border: 1px solid #d4af37; color: #d4af37; text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
+        .btn-hero:hover { background-color: #d4af37; color: #0b0b0d; }
+        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">LUXTIME</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Inicio</a></li>
+            <li><a href="historia.html">Nuestra Historia</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="contacto.html">Contáctenos</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>LUXTIME</h1>
+        <p>Colección exclusiva de las más prestigiosas casas relojeras del mundo desde San Gil, Santander.</p>
+        <a href="catalogo.html" class="btn-hero">Explorar Catálogo</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LUXTIME. San Gil, Santander.</p>
+    </footer>
+</body>
+</html>
