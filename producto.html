@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXTIME | Detalle del Producto</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; }
+        
+        /* Navegación */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 50px; }
+        .logo { color: #d4af37; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: #d4af37; }
+
+        /* Contenedor del Producto */
+        section { padding: 120px 20px 80px; max-width: 1100px; margin: 0 auto; }
+        
+        .producto-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: #141418; border: 1px solid #23232a; border-radius: 8px; padding: 40px; }
+        
+        .producto-imagen img { width: 100%; height: 420px; object-fit: cover; border-radius: 6px; border: 1px solid #2a2a30; }
+        
+        .producto-info { display: flex; flex-direction: column; justify-content: center; }
+        .marca { color: #d4af37; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        .modelo { font-size: 2.2rem; color: #fff; margin: 10px 0; }
+        .precio { font-size: 1.8rem; font-weight: 700; color: #d4af37; margin-bottom: 20px; }
+        .descripcion { font-size: 1.05rem; color: #c4c4cc; margin-bottom: 25px; line-height: 1.7; }
+        
+        .specs-box { background: #0f0f11; padding: 20px; border-radius: 6px; border-left: 3px solid #d4af37; margin-bottom: 30px; }
+        .specs-box h4 { color: #fff; margin-bottom: 10px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .specs-box p { font-size: 0.95rem; color: #a8a8b3; }
+
+        .btn-comprar { display: inline-block; text-align: center; background: #d4af37; color: #0b0b0d; font-weight: 700; text-decoration: none; padding: 15px 30px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; }
+        .btn-comprar:hover { background: #f0c442; transform: translateY(-2px); }
+        .btn-volver { display: inline-block; margin-bottom: 20px; color: #a8a8b3; text-decoration: none; font-size: 0.9rem; }
+        .btn-volver:hover { color: #d4af37; }
+
+        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; margin-top: 50px; }
+
+        @media (max-width: 768px) {
+            .producto-container { grid-template-columns: 1fr; gap: 30px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">LUXTIME</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="historia.html">Nuestra Historia</a></li>
+            <li><a href="catalogo.html" class="active">Catálogo</a></li>
+            <li><a href="contacto.html">Contáctenos</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <a href="catalogo.html" class="btn-volver">&larr; Volver al catálogo</a>
+        
+        <div class="producto-container">
+            <div class="producto-imagen">
+                <img id="prodImagen" src="" alt="Reloj">
+            </div>
+            <div class="producto-info">
+                <span class="marca" id="prodMarca"></span>
+                <h1 class="modelo" id="prodModelo"></h1>
+                <div class="precio" id="prodPrecio"></div>
+                <p class="descripcion" id="prodDesc"></p>
+                
+                <div class="specs-box">
+                    <h4>Especificaciones Técnicas</h4>
+                    <p id="prodSpecs"></p>
+                </div>
+
+                <a id="btnWhatsapp" href="#" target="_blank" class="btn-comprar">Consultar por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 LUXTIME. San Gil, Santander.</p>
+    </footer>
+
+    <script>
+        const relojes = [
+            { id: 1, marca: "Rolex", modelo: "Submariner Date", precio: "$14,500 USD", imagen: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80", desc: "El referente absoluto entre los relojes de buceo. Fabricado en acero Oystersteel con bisel Cerachrom negro.", specs: "Caja: 41 mm | Calibre: 3235 | Hermeticidad: 300 m" },
+            { id: 2, marca: "Rolex", modelo: "Cosmograph Daytona", precio: "$38,000 USD", imagen: "https://images.unsplash.com/photo-1547996160-012745942866?w=600&auto=format&fit=crop&q=80", desc: "Cronógrafo legendario con escala taquimétrica grabada, concebido para pilotos de alta competición.", specs: "Caja: 40 mm | Calibre: 4131 | Esfera: Panda" },
+            { id: 3, marca: "Rolex", modelo: "Datejust 41", precio: "$12,800 USD", imagen: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80", desc: "Diseño clásico por excelencia con bisel estriado de oro blanco y brazalete Jubilé.", specs: "Caja: 41 mm | Cristal: Zafiro con lente Cyclops" },
+            { id: 4, marca: "Patek Philippe", modelo: "Nautilus 5711/1A", precio: "$115,000 USD", imagen: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80", desc: "Icono de la alta relojería deportiva diseñado por Gérald Genta.", specs: "Caja: 40 mm | Calibre: 26-330 S C" },
+            { id: 5, marca: "Patek Philippe", modelo: "Calatrava Automatic", precio: "$29,500 USD", imagen: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop&q=80", desc: "Elegancia sobria con caja en oro rosa de 18k y correa de piel fina.", specs: "Caja: 39 mm | Correa: Piel de aligátor" },
+            { id: 6, marca: "Audemars Piguet", modelo: "Royal Oak", precio: "$62,000 USD", imagen: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80", desc: "Bisel octogonal icónico con patrón 'Grande Tapisserie'.", specs: "Caja: 39 mm | Material: Acero inoxidable" }
+        ];
+
+        // Leer el ID de la URL (Ejemplo: producto.html?id=1)
+        const urlParams = new URLSearchParams(window.location.search);
+        const idParam = parseInt(urlParams.get('id')) || 1;
+
+        const reloj = relojes.find(r => r.id === idParam) || relojes[0];
+
+        // Cargar los datos en la página
+        document.getElementById('prodMarca').innerText = reloj.marca;
+        document.getElementById('prodModelo').innerText = reloj.modelo;
+        document.getElementById('prodPrecio').innerText = reloj.precio;
+        document.getElementById('prodDesc').innerText = reloj.desc;
+        document.getElementById('prodSpecs').innerText = reloj.specs;
+        document.getElementById('prodImagen').src = reloj.imagen;
+
+        // Enlace a WhatsApp dinámico
+        const mensajeWA = encodeURIComponent(`Hola LUXTIME, estoy interesado en el reloj ${reloj.marca} ${reloj.modelo} de San Gil, Santander.`);
+        document.getElementById('btnWhatsapp').href = `https://wa.me/573209954324?text=${mensajeWA}`;
+    </script>
+</body>
+</html>
