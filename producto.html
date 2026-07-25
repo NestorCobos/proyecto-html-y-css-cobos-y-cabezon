@@ -3,44 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXTIME | Detalle del Producto</title>
+    <title>LUXTIME | Detalle de Producto</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; }
+        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         
         /* Navegación */
         nav { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 50px; }
         .logo { color: #d4af37; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-links a.active { color: #d4af37; }
+        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: #d4af37; }
 
-        /* Contenedor del Producto */
-        section { padding: 120px 20px 80px; max-width: 1100px; margin: 0 auto; }
-        
-        .producto-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: #141418; border: 1px solid #23232a; border-radius: 8px; padding: 40px; }
-        
-        .producto-imagen img { width: 100%; height: 420px; object-fit: cover; border-radius: 6px; border: 1px solid #2a2a30; }
-        
-        .producto-info { display: flex; flex-direction: column; justify-content: center; }
-        .marca { color: #d4af37; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-        .modelo { font-size: 2.2rem; color: #fff; margin: 10px 0; }
-        .precio { font-size: 1.8rem; font-weight: 700; color: #d4af37; margin-bottom: 20px; }
-        .descripcion { font-size: 1.05rem; color: #c4c4cc; margin-bottom: 25px; line-height: 1.7; }
-        
-        .specs-box { background: #0f0f11; padding: 20px; border-radius: 6px; border-left: 3px solid #d4af37; margin-bottom: 30px; }
-        .specs-box h4 { color: #fff; margin-bottom: 10px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .specs-box p { font-size: 0.95rem; color: #a8a8b3; }
+        /* Botón de Carrito */
+        .cart-btn {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .cart-btn:hover { background: #d4af37; color: #0b0b0d; }
+        .cart-count { background: #d4af37; color: #0b0b0d; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; }
+        .cart-btn:hover .cart-count { background: #0b0b0d; color: #d4af37; }
 
-        .btn-comprar { display: inline-block; text-align: center; background: #d4af37; color: #0b0b0d; font-weight: 700; text-decoration: none; padding: 15px 30px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; }
-        .btn-comprar:hover { background: #f0c442; transform: translateY(-2px); }
-        .btn-volver { display: inline-block; margin-bottom: 20px; color: #a8a8b3; text-decoration: none; font-size: 0.9rem; }
-        .btn-volver:hover { color: #d4af37; }
+        /* Contenedor Producto */
+        .product-container { max-width: 1100px; margin: 130px auto 50px; padding: 0 20px; width: 100%; }
+        .back-link { display: inline-block; color: #a8a8b3; text-decoration: none; margin-bottom: 25px; transition: color 0.3s; font-size: 0.9rem; }
+        .back-link:hover { color: #d4af37; }
 
-        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; margin-top: 50px; }
+        .product-detail-card {
+            background: #141418;
+            border: 1px solid #2a2a30;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            gap: 40px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-        @media (max-width: 768px) {
-            .producto-container { grid-template-columns: 1fr; gap: 30px; padding: 20px; }
+        .product-image-container { flex: 1; max-width: 500px; display: flex; align-items: center; justify-content: center; background: #1a1a20; border-radius: 8px; overflow: hidden; }
+        .product-image-container img { width: 100%; height: 100%; max-height: 450px; object-fit: cover; }
+
+        .product-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .product-marca { color: #d4af37; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+        .product-modelo { font-size: 2.2rem; color: #fff; margin: 5px 0 15px; font-weight: 600; }
+        .product-precio { font-size: 1.8rem; color: #d4af37; font-weight: 700; margin-bottom: 20px; }
+        .product-desc { color: #c4c4cc; margin-bottom: 25px; font-size: 1rem; line-height: 1.7; }
+
+        .specs-box { background: #1a1a20; border-left: 3px solid #d4af37; padding: 15px 20px; margin-bottom: 30px; border-radius: 0 6px 6px 0; }
+        .specs-title { color: #fff; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .specs-content { color: #a8a8b3; font-size: 0.9rem; }
+
+        .actions-group { display: flex; gap: 15px; }
+        .btn-action {
+            flex: 1;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-cart-add { background: #d4af37; color: #0b0b0d; }
+        .btn-cart-add:hover { background: #f0c442; }
+
+        .btn-whatsapp { background: transparent; border: 1px solid #25d366; color: #25d366; }
+        .btn-whatsapp:hover { background: #25d366; color: #fff; }
+
+        /* Panel Lateral del Carrito */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; }
+        .cart-drawer { position: fixed; top: 0; right: -420px; width: 100%; max-width: 400px; height: 100%; background: #141418; border-left: 1px solid #2a2a30; z-index: 2001; transition: right 0.4s ease; display: flex; flex-direction: column; padding: 25px; }
+        .cart-drawer.open { right: 0; }
+        .cart-overlay.open { display: block; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2a30; padding-bottom: 15px; }
+        .cart-header h2 { color: #d4af37; font-size: 1.3rem; }
+        .close-cart { background: none; border: none; color: #a8a8b3; font-size: 1.5rem; cursor: pointer; }
+        .cart-items { flex-grow: 1; overflow-y: auto; margin: 20px 0; display: flex; flex-direction: column; gap: 15px; }
+        .cart-item { display: flex; gap: 15px; background: #1a1a20; padding: 10px; border-radius: 6px; border: 1px solid #2a2a30; align-items: center; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+        .cart-item-details { flex-grow: 1; }
+        .cart-item-title { font-size: 0.9rem; color: #fff; font-weight: 600; }
+        .cart-item-price { font-size: 0.85rem; color: #d4af37; font-weight: 700; }
+        .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+        .qty-btn { background: #2a2a30; color: #fff; border: none; width: 22px; height: 22px; border-radius: 3px; cursor: pointer; font-weight: 700; }
+        .qty-btn:hover { background: #d4af37; color: #0b0b0d; }
+        .remove-item { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
+        .cart-footer { border-top: 1px solid #2a2a30; padding-top: 15px; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 20px; }
+        .cart-total span:last-child { color: #d4af37; }
+        .btn-checkout { display: block; width: 100%; text-align: center; background: #25d366; color: #fff; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; }
+
+        @media (max-width: 850px) {
+            .product-detail-card { flex-direction: column; }
+            .product-image-container { max-width: 100%; }
+            .actions-group { flex-direction: column; }
         }
     </style>
 </head>
@@ -51,33 +123,39 @@
         <ul class="nav-links">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="historia.html">Nuestra Historia</a></li>
-            <li><a href="catalogo.html" class="active">Catálogo</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
             <li><a href="contacto.html">Contáctenos</a></li>
+            <li>
+                <button class="cart-btn" onclick="toggleCart()">
+                    🛒 Carrito <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </li>
         </ul>
     </nav>
 
-    <section>
-        <a href="catalogo.html" class="btn-volver">&larr; Volver al catálogo</a>
-        
-        <div class="producto-container">
-            <div class="producto-imagen">
-                <img id="prodImagen" src="" alt="Reloj">
-            </div>
-            <div class="producto-info">
-                <span class="marca" id="prodMarca"></span>
-                <h1 class="modelo" id="prodModelo"></h1>
-                <div class="precio" id="prodPrecio"></div>
-                <p class="descripcion" id="prodDesc"></p>
-                
-                <div class="specs-box">
-                    <h4>Especificaciones Técnicas</h4>
-                    <p id="prodSpecs"></p>
-                </div>
-
-                <a id="btnWhatsapp" href="#" target="_blank" class="btn-comprar">Consultar por WhatsApp</a>
-            </div>
+    <div class="product-container">
+        <a href="catalogo.html" class="back-link">&larr; Volver al catálogo</a>
+        <div class="product-detail-card" id="productDetail">
+            <!-- Cargado por JS -->
         </div>
-    </section>
+    </div>
+
+    <!-- Carrito Lateral -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h2>Tu Carrito de Compras</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total Estimado:</span>
+                <span id="cartTotal">$0 USD</span>
+            </div>
+            <a href="#" class="btn-checkout" id="checkoutBtn" target="_blank">Pedir por WhatsApp</a>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2026 LUXTIME. San Gil, Santander.</p>
@@ -85,31 +163,154 @@
 
     <script>
         const relojes = [
-            { id: 1, marca: "Rolex", modelo: "Submariner Date", precio: "$14,500 USD", imagen: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80", desc: "El referente absoluto entre los relojes de buceo. Fabricado en acero Oystersteel con bisel Cerachrom negro.", specs: "Caja: 41 mm | Calibre: 3235 | Hermeticidad: 300 m" },
-            { id: 2, marca: "Rolex", modelo: "Cosmograph Daytona", precio: "$38,000 USD", imagen: "https://images.unsplash.com/photo-1547996160-012745942866?w=600&auto=format&fit=crop&q=80", desc: "Cronógrafo legendario con escala taquimétrica grabada, concebido para pilotos de alta competición.", specs: "Caja: 40 mm | Calibre: 4131 | Esfera: Panda" },
-            { id: 3, marca: "Rolex", modelo: "Datejust 41", precio: "$12,800 USD", imagen: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80", desc: "Diseño clásico por excelencia con bisel estriado de oro blanco y brazalete Jubilé.", specs: "Caja: 41 mm | Cristal: Zafiro con lente Cyclops" },
-            { id: 4, marca: "Patek Philippe", modelo: "Nautilus 5711/1A", precio: "$115,000 USD", imagen: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&auto=format&fit=crop&q=80", desc: "Icono de la alta relojería deportiva diseñado por Gérald Genta.", specs: "Caja: 40 mm | Calibre: 26-330 S C" },
-            { id: 5, marca: "Patek Philippe", modelo: "Calatrava Automatic", precio: "$29,500 USD", imagen: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop&q=80", desc: "Elegancia sobria con caja en oro rosa de 18k y correa de piel fina.", specs: "Caja: 39 mm | Correa: Piel de aligátor" },
-            { id: 6, marca: "Audemars Piguet", modelo: "Royal Oak", precio: "$62,000 USD", imagen: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80", desc: "Bisel octogonal icónico con patrón 'Grande Tapisserie'.", specs: "Caja: 39 mm | Material: Acero inoxidable" }
+            { id: 1, marca: "Rolex", modelo: "Submariner Date", precio: 14500, precioTexto: "$14,500 USD", imagen: "https://media.rolex.com/image/upload/q_auto/f_auto/t_v7-cover-majesty-landscape/c_limit,w_800/v1/a677b2c664f6/catalogue/2026/upright-c/m126610ln-0001", desc: "El referente absoluto entre los relojes de buceo. Fabricado en acero Oystersteel con bisel Cerachrom negro.", specs: "Caja: 41 mm | Calibre: 3235 | Hermeticidad: 300 m" },
+            { id: 2, marca: "Rolex", modelo: "Cosmograph Daytona", precio: 38000, precioTexto: "$38,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlMAYEo_kmq0SEVRRTfxLseV2wnsMXngC2wunQaGWdsA&s=10", desc: "Cronógrafo legendario con escala taquimétrica grabada, concebido para pilotos de alta competición.", specs: "Caja: 40 mm | Calibre: 4131 | Esfera: Panda" },
+            { id: 3, marca: "Rolex", modelo: "Datejust 41", precio: 12800, precioTexto: "$12,800 USD", imagen: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTCPIgqQ33orNUNhxU0779oylJW_-m0yjFpjWaGA-b_bzN0TGecWLGU8Okqk5lRgcdJKpuhqx5KMnpC9GricJ_KrD7a5emn", desc: "Diseño clásico por excelencia con bisel estriado de oro blanco y brazalete Jubilé.", specs: "Caja: 41 mm | Cristal: Zafiro con lente Cyclops" },
+            { id: 4, marca: "Patek Philippe", modelo: "Nautilus 5711/1A", precio: 115000, precioTexto: "$115,000 USD", imagen: "https://www.officialwatches.com/cdn/shop/products/502410_600x.jpg?v=1610711759", desc: "Icono de la alta relojería deportiva diseñado por Gérald Genta.", specs: "Caja: 40 mm | Calibre: 26-330 S C" },
+            { id: 5, marca: "Patek Philippe", modelo: "Calatrava Automatic", precio: 29500, precioTexto: "$29,500 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM6yhdJw0yoWIQaHOMv5jZjZLXv9AW1ZJd6AOJXYUJHaDeSEHnXEEJecQ&s=10", desc: "Elegancia sobria con caja en oro rosa de 18k y correa de piel fina.", specs: "Caja: 39 mm | Correa: Piel de aligátor" },
+            { id: 6, marca: "Audemars Piguet", modelo: "Royal Oak", precio: 62000, precioTexto: "$62,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIbNA3xzhtwSOrqsB6eXBQMebC6EbjvqxL0OhHR9MaDw&s=10", desc: "Bisel octogonal icónico con patrón 'Grande Tapisserie'.", specs: "Caja: 39 mm | Material: Acero inoxidable" },
+            { id: 7, marca: "Audemars Piguet", modelo: "Royal Oak Offshore", precio: 45000, precioTexto: "$45,000 USD", imagen: "https://i.ebayimg.com/images/g/Dp0AAeSwsehqYDNt/s-l1200.webp", desc: "Versión robusta y deportiva del clásico Royal Oak.", specs: "Caja: 42 mm | Hermeticidad: 100 m" },
+            { id: 8, marca: "Vacheron Constantin", modelo: "Overseas", precio: 36000, precioTexto: "$36,000 USD", imagen: "https://cdn-images.farfetch-contents.com/31/12/19/48/31121948_60422243_1000.jpg", desc: "Espíritu de viaje y elegancia técnica con esfera azul en relieve.", specs: "Caja: 41 mm | Correa intercambiable" },
+            { id: 9, marca: "Vacheron Constantin", modelo: "Historiques 1921", precio: 41000, precioTexto: "$41,000 USD", imagen: "https://img.chrono24.com/images/uhren/47100979-38kqklhc941m99mkiw03hrqz-ExtraLarge.jpg", desc: "Diseño audaz en forma de cojín con lectura diagonal.", specs: "Caja: 40 mm | Material: Oro blanco 18k" },
+            { id: 10, marca: "A. Lange & Söhne", modelo: "Lange 1", precio: 52000, precioTexto: "$52,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhvWf_a4No4qk3iywiuXMyzdcMsnuKMDWVNgqTqfLehUgP0j2gSBal-YgT&s=10", desc: "Obra maestra de la artesanía sajona con fecha panorámica.", specs: "Caja: 38.5 mm | Calibre: L121.1" },
+            { id: 11, marca: "A. Lange & Söhne", modelo: "Datograph", precio: 98000, precioTexto: "$98,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROIFmu-N6HwGLGfAp0Rw2D1iuv9HBvSgcohynK9OxTl_NWpno_EF-ki88&s=10", desc: "Uno de los cronógrafos de manufactura más aclamados del mundo.", specs: "Caja: 41 mm | Calibre: L951.6" },
+            { id: 12, marca: "Omega", modelo: "Speedmaster Pro", precio: 7600, precioTexto: "$7,600 USD", imagen: "https://plazavendome.vteximg.com.br/arquivos/ids/167367-1000-1000/Group-29.jpg?v=638725580614030000", desc: "El legendario 'Moonwatch' que participó en las seis misiones lunares.", specs: "Caja: 42 mm | Calibre: Co-Axial Master Chronometer 3861" },
+            { id: 13, marca: "Omega", modelo: "Seamaster Diver 300M", precio: 5900, precioTexto: "$5,900 USD", imagen: "https://plazavendome.vteximg.com.br/arquivos/ids/161251-1000-1000/omega-reloj-seamaster-diver-300m-co-axial-master-chronometer-chronograph-44mm-21030445106001-1.jpg?v=637614546101600000", desc: "Bisel cerámico con escala grabada en esmalte blanco y esfera con grabado de olas.", specs: "Caja: 44 mm | Válvula de helio" },
+            { id: 14, marca: "Cartier", modelo: "Santos de Cartier", precio: 8200, precioTexto: "$8,200 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgIp273fN9sle3JaABB3Rnx10OfORxlgIcztHqf8YXAw4h8XIHCYHXO4E&s=10", desc: "Uno de los primeros relojes de pulsera de la historia, creado para la aviación.", specs: "Caja: 39.8 mm | Sistema de cambio de correa QuickSwitch" },
+            { id: 15, marca: "Cartier", modelo: "Tank Louis", precio: 13400, precioTexto: "$13,400 USD", imagen: "https://cdn-images.farfetch-contents.com/31/12/21/12/31122112_60347391_600.jpg", desc: "Icono de elegancia geométrica pura con números romanos característicos.", specs: "Caja: Rectangular | Material: Oro rosa" },
+            { id: 16, marca: "Jaeger-LeCoultre", modelo: "Reverso Tribute", precio: 10800, precioTexto: "$10,800 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7UclMjOUOe9VvAOtseuy0GYuuIWYW6bAYwFmlJZ2wGA&s=10", desc: "Caja giratoria concebida originalmente para jugadores de polo en 1931.", specs: "Caja: Reversible | Movimiento: Cuerda manual" },
+            { id: 17, marca: "Richard Mille", modelo: "RM 11-03", precio: 270000, precioTexto: "$270,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_BtwS0xqsJzUoWDXrr4ZGDnTW7mauu3IywFRYqTiZATZOWdWC5fFWmOz&s=10", desc: "Ingeniería de alta competición aplicada a la relojería vanguardista.", specs: "Caja: Tonneau | Material: Titanio / Carbono TPT" },
+            { id: 18, marca: "TAG Heuer", modelo: "Monaco Calibre 11", precio: 7800, precioTexto: "$7,800 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-BDrzAwddHZeMpRC4vVAoJ1xxEhqncC4OxkqK7BpJmpB4lOBU6P8gCbiC&s=10", desc: "El legendario cronógrafo cuadrado azul inmortalizado por Steve McQueen.", specs: "Caja: 39 mm | Corona a la izquierda" },
+            { id: 19, marca: "Rolex", modelo: "GMT-Master II Pepsi", precio: 21500, precioTexto: "$21,500 USD", imagen: "https://galileo.tsqsa.com/FTPImagenes/rolex-img/watches-models/m126710blro-0002-drp-upright-bba-with-shadow-landscape.webp", desc: "Permite la lectura de múltiples zonas horarias con bisel Cerachrom bicolor rojo y azul.", specs: "Caja: 40 mm | Brazalete: Jubilee" },
+            { id: 20, marca: "Rolex", modelo: "Day-Date 40 Oro", precio: 42000, precioTexto: "$42,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdb8VEnGLpSkCAC5JwwLh6-y_KG0fwBXOs3vpJCzKOUSsA7ZUZFIVyvjHv&s=10", desc: "El 'reloj de los presidentes', fabricado exclusivamente en metales preciosos.", specs: "Caja: 40 mm | Oro amarillo de 18k" },
+            { id: 21, marca: "Olevs", modelo: "el que tiene el profesor", precio: 1000000, precioTexto: "$1,000,000 USD", imagen: "https://http2.mlstatic.com/D_NQ_NP_957121-CBT76357393642_052024-O.webp", desc: "Pieza exclusiva de edición de gala con acabados brillantes.", specs: "Caja: Alta resistencia | Diseño exclusivo" },
+            { id: 22, marca: "Patek Philippe", modelo: "Aquanaut 5167A", precio: 55000, precioTexto: "$55,000 USD", imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwZnI9O8JLRWIeOZKFYQ3Okq2Y-To0qTbeW6JFYaycUIOZ-oBP0yHhX_q4&s=10", desc: "Elegancia deportiva moderna con esfera con textura gofrada y correa 'Tropical'.", specs: "Caja: 40.8 mm | Hermeticidad: 120 m" }
         ];
 
-        // Leer el ID de la URL (Ejemplo: producto.html?id=1)
-        const urlParams = new URLSearchParams(window.location.search);
-        const idParam = parseInt(urlParams.get('id')) || 1;
+        // Obtener ID del URL
+        const params = new URLSearchParams(window.location.search);
+        const productoId = parseInt(params.get('id')) || 1;
+        const producto = relojes.find(r => r.id === productoId) || relojes[0];
 
-        const reloj = relojes.find(r => r.id === idParam) || relojes[0];
+        // Renderizar Detalle
+        const container = document.getElementById('productDetail');
+        container.innerHTML = `
+            <div class="product-image-container">
+                <img src="${producto.imagen}" alt="${producto.marca} ${producto.modelo}">
+            </div>
+            <div class="product-info">
+                <span class="product-marca">${producto.marca}</span>
+                <h1 class="product-modelo">${producto.modelo}</h1>
+                <div class="product-precio">${producto.precioTexto}</div>
+                <p class="product-desc">${producto.desc}</p>
+                
+                <div class="specs-box">
+                    <div class="specs-title">Especificaciones Técnicas</div>
+                    <div class="specs-content">${producto.specs}</div>
+                </div>
 
-        // Cargar los datos en la página
-        document.getElementById('prodMarca').innerText = reloj.marca;
-        document.getElementById('prodModelo').innerText = reloj.modelo;
-        document.getElementById('prodPrecio').innerText = reloj.precio;
-        document.getElementById('prodDesc').innerText = reloj.desc;
-        document.getElementById('prodSpecs').innerText = reloj.specs;
-        document.getElementById('prodImagen').src = reloj.imagen;
+                <div class="actions-group">
+                    <button class="btn-action btn-cart-add" onclick="addToCart(${producto.id})">+ Añadir al Carrito</button>
+                    <a href="https://wa.me/573209954324?text=Hola,%20deseo%20consultar%20sobre%20el%20${encodeURIComponent(producto.marca + ' ' + producto.modelo)}" target="_blank" class="btn-action btn-whatsapp">Consultar por WhatsApp</a>
+                </div>
+            </div>
+        `;
 
-        // Enlace a WhatsApp dinámico
-        const mensajeWA = encodeURIComponent(`Hola LUXTIME, estoy interesado en el reloj ${reloj.marca} ${reloj.modelo} de San Gil, Santander.`);
-        document.getElementById('btnWhatsapp').href = `https://wa.me/573209954324?text=${mensajeWA}`;
+        // --- SISTEMA DE CARRITO ---
+        let cart = JSON.parse(localStorage.getItem('luxtime_cart')) || [];
+
+        function toggleCart() {
+            document.getElementById('cartDrawer').classList.toggle('open');
+            document.getElementById('cartOverlay').classList.toggle('open');
+        }
+
+        function addToCart(id) {
+            const p = relojes.find(item => item.id === id);
+            const itemInCart = cart.find(item => item.id === id);
+
+            if (itemInCart) {
+                itemInCart.cantidad++;
+            } else {
+                cart.push({ ...p, cantidad: 1 });
+            }
+
+            saveAndUpdateCart();
+            toggleCart();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.cantidad += delta;
+                if (item.cantidad <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            saveAndUpdateCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveAndUpdateCart();
+        }
+
+        function saveAndUpdateCart() {
+            localStorage.setItem('luxtime_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let totalCount = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="color: #a8a8b3; text-align: center; margin-top: 30px;">Tu carrito está vacío.</p>';
+            } else {
+                cart.forEach(item => {
+                    total += item.precio * item.cantidad;
+                    totalCount += item.cantidad;
+
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <img src="${item.imagen}" alt="${item.modelo}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.marca} ${item.modelo}</div>
+                            <div class="cart-item-price">$${(item.precio * item.cantidad).toLocaleString()} USD</div>
+                            <div class="cart-item-qty">
+                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                <span>${item.cantidad}</span>
+                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                                <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+            }
+
+            cartCount.textContent = totalCount;
+            cartTotal.textContent = `$${total.toLocaleString()} USD`;
+
+            if (cart.length > 0) {
+                let mensaje = "Hola LUXTIME, deseo realizar el pedido de los siguientes relojes:%0A%0A";
+                cart.forEach(item => {
+                    mensaje += `• ${item.marca} ${item.modelo} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()} USD%0A`;
+                });
+                mensaje += `%0ATotal: $${total.toLocaleString()} USD`;
+                checkoutBtn.href = `https://wa.me/573209954324?text=${mensaje}`;
+            } else {
+                checkoutBtn.href = "#";
+            }
+        }
+
+        renderCart();
     </script>
 </body>
 </html>
