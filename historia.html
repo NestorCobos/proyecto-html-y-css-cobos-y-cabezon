@@ -3,42 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXTIME | Nuestra Historia</title>
+    <title>LUXTIME | Historia de la Relojería</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; }
-        nav { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 50px; }
-        .logo { color: #d4af37; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-links a.active { color: #d4af37; }
-        
-        section { padding: 120px 20px 80px; max-width: 900px; margin: 0 auto; text-align: center; }
-        h1 { font-size: 2.5rem; color: #d4af37; letter-spacing: 4px; margin-bottom: 30px; text-transform: uppercase; }
-        p { font-size: 1.1rem; color: #c4c4cc; line-height: 1.8; margin-bottom: 20px; }
-        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; margin-top: 50px; }
+        :root {
+            --bg-color: #0b0b0d;
+            --card-bg: #141418;
+            --text-color: #e1e1e6;
+            --text-muted: #8d8d99;
+            --border-color: #2a2a30;
+            --accent-gold: #d4af37;
+            --accent-hover: #f0c442;
+            --nav-bg: rgba(15, 15, 18, 0.95);
+            --input-bg: #1a1a20;
+        }
+
+        body.light-mode {
+            --bg-color: #f4f4f7;
+            --card-bg: #ffffff;
+            --text-color: #1a1a1e;
+            --text-muted: #5a5a66;
+            --border-color: #e1e1e6;
+            --accent-gold: #b8860b;
+            --accent-hover: #d4af37;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --input-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+        }
+        .logo { color: var(--accent-gold); font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .theme-toggle-btn:hover { background: var(--accent-gold); color: #0b0b0d; }
+
+        /* Contenedor Principal */
+        .history-container {
+            max-width: 1000px;
+            margin: 130px auto 60px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* --- SPRITE TIMELINE CARD --- */
+        .sprite-timeline-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ventana del Sprite */
+        .sprite-viewport {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--accent-gold);
+        }
+
+        /* Sprite SVG */
+        .sprite-image {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Pasos del Timeline */
+        .timeline-steps {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .step-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .step-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .step-btn.active {
+            background: var(--accent-gold);
+            color: #0b0b0d;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Contenido Histórico */
+        .history-content {
+            min-height: 160px;
+            max-width: 750px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .history-year {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .history-text-box p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .history-text-box p strong {
+            color: var(--accent-gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
+
     <nav>
-        <a href="index.html" class="logo">LUXTIME</a>
+        <a href="./" class="logo">LUXTIME</a>
         <ul class="nav-links">
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="./">Inicio</a></li>
             <li><a href="historia.html" class="active">Nuestra Historia</a></li>
             <li><a href="catalogo.html">Catálogo</a></li>
             <li><a href="contacto.html">Contáctenos</a></li>
+            <li>
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙 Modo Oscuro</span>
+                </button>
+            </li>
         </ul>
     </nav>
 
-    <section>
-        <h1>Nuestra Historia</h1>
-        <p><strong>LUXTIME</strong> nació en el corazón de <strong>San Gil, Santander</strong>, fundada por <strong>Manuel y Cobos</strong> con la visión de traer la más alta relojería de lujo a la región y al mundo entero.</p>
-        <p>Lo que comenzó como una pasión compartida por la precisión micro-mecánica y la alta relojería, se convirtió rápidamente en la boutique de referencia para coleccionistas e inversionistas de piezas exclusivas.</p>
-        <p>Cada reloj en nuestro catálogo representa tradición, prestigio y un nivel de excelencia único garantizado por nuestros fundadores.</p>
-    </section>
+    <div class="history-container">
+        <h1>HISTORIA DE LA RELOJERÍA</h1>
+        <p class="subtitle">Un viaje por el tiempo: desde los primeros mecanismos mecánicos hasta nuestra llegada</p>
+
+        <div class="sprite-timeline-card">
+            
+            <!-- Sprite Animado SVG (Mecanismo de Agujas y Engranaje) -->
+            <div class="sprite-viewport">
+                <svg id="spriteGraphic" class="sprite-image" viewBox="0 0 200 200">
+                    <!-- Esfera exterior -->
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="#d4af37" stroke-width="6" />
+                    <circle cx="100" cy="100" r="72" fill="none" stroke="#2a2a30" stroke-width="2" />
+                    <!-- Corona del Reloj -->
+                    <rect x="92" y="5" width="16" height="15" fill="#d4af37" rx="3" />
+                    <circle cx="100" cy="5" r="8" fill="none" stroke="#d4af37" stroke-width="3" />
+                    <!-- Eje central -->
+                    <circle cx="100" cy="100" r="8" fill="#d4af37" />
+
+                    <!-- Engranaje decorativo -->
+                    <g id="gearGroup" style="transform-origin: 100px 100px; transition: transform 0.8s ease;">
+                        <circle cx="100" cy="100" r="45" fill="none" stroke="rgba(212,175,55,0.25)" stroke-width="3" stroke-dasharray="6,6" />
+                    </g>
+
+                    <!-- Aguja Horas (Larga) -->
+                    <line id="handHour" x1="100" y1="100" x2="100" y2="45" stroke="#d4af37" stroke-width="5" stroke-linecap="round" style="transform-origin: 100px 100px; transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);" />
+                    
+                    <!-- Aguja Minutos (Blanca) -->
+                    <line id="handMinute" x1="100" y1="100" x2="140" y2="100" stroke="#ffffff" stroke-width="3" stroke-linecap="round" style="transform-origin: 100px 100px; transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);" />
+                </svg>
+            </div>
+
+            <!-- Botones interactivos de la línea de tiempo -->
+            <div class="timeline-steps">
+                <button class="step-btn active" onclick="setStep(0)">S. XIV - Reloj Mecánico</button>
+                <button class="step-btn" onclick="setStep(1)">1510 - Reloj de Bolsillo</button>
+                <button class="step-btn" onclick="setStep(2)">1868 - Reloj de Pulsera</button>
+                <button class="step-btn" onclick="setStep(3)">2026 - Era LUXTIME</button>
+            </div>
+
+            <!-- Caja con el texto histórico -->
+            <div class="history-content">
+                <div class="history-year" id="historyYear">S. XIV</div>
+                <div class="history-text-box" id="historyTextBox">
+                    <!-- Se llena dinámicamente con JS -->
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2026 LUXTIME. San Gil, Santander.</p>
     </footer>
+
+    <script>
+        // HISTORIA DE LA RELOJERÍA Y LA LLEGADA DE LUXTIME
+        const historiaData = [
+            {
+                year: "Siglo XIV - Los Primeros Relojes Mecánicos",
+                htmlContent: `<p>La humanidad dio un salto monumental al abandonar la dependencia del sol y el agua. Nace la micromecánica con los primeros relojes mecánicos de torre en Europa, impulsados por contrapesos y complejos escapajes mecánicos.</p>`,
+                hourAngle: 0,
+                minuteAngle: 90,
+                gearAngle: 0
+            },
+            {
+                year: "1510 - La Invención del Reloj de Bolsillo",
+                htmlContent: `<p>El cerrajero alemán Peter Henlein revoluciona el mundo al miniaturizar los mecanismos mediante muelles espirales. El tiempo deja de ser público y pasa a ser un objeto personal de lujo y estatus portado en el bolsillo.</p>`,
+                hourAngle: 90,
+                minuteAngle: 270,
+                gearAngle: 120
+            },
+            {
+                year: "1868 - El Nacimiento del Reloj de Pulsera",
+                htmlContent: `<p>Se crea el primer reloj de pulsera de la historia ideado como una joya de alta relojería. Con el tiempo y las exigencias de los aviadores y exploradores del siglo XX, la pulsera se convirtió en el estándar mundial de elegancia.</p>`,
+                hourAngle: 180,
+                minuteAngle: 450,
+                gearAngle: 240
+            },
+            {
+                year: "2026 - La Entrada de LUXTIME",
+                htmlContent: `
+                    <p>Tras siglos de evolución relojera, decidimos adentrarnos en el fascinante mundo de la alta relojería para continuar este legado de precisión y elegancia.</p>
+                    <p><strong>LUXTIME</strong> nació en el corazón de <strong>San Gil, Santander</strong>, fundada por <strong>Manuel y Cobos</strong> con la visión de traer la más alta relojería de lujo a la región y al mundo entero.</p>
+                    <p>Lo que comenzó como una pasión compartida por la precisión micro-mecánica y la alta relojería, se convirtió rápidamente en la boutique de referencia para coleccionistas e inversionistas de piezas exclusivas.</p>
+                    <p>Cada reloj en nuestro catálogo representa tradición, prestigio y un nivel de excelencia único garantizado por nuestros fundadores.</p>
+                `,
+                hourAngle: 300,
+                minuteAngle: 630,
+                gearAngle: 360
+            }
+        ];
+
+        function setStep(index) {
+            const data = historiaData[index];
+
+            // Actualizar estado de los botones
+            const buttons = document.querySelectorAll('.step-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // Animación interactiva del Sprite SVG
+            document.getElementById('handHour').style.transform = `rotate(${data.hourAngle}deg)`;
+            document.getElementById('handMinute').style.transform = `rotate(${data.minuteAngle}deg)`;
+            document.getElementById('gearGroup').style.transform = `rotate(${data.gearAngle}deg)`;
+
+            // Cambiar textos en pantalla
+            document.getElementById('historyYear').textContent = data.year;
+            document.getElementById('historyTextBox').innerHTML = data.htmlContent;
+        }
+
+        // Sistema de Modo Claro / Oscuro
+        function applyTheme(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.innerHTML = '☀️ Modo Claro';
+            } else {
+                document.body.classList.remove('light-mode');
+                themeIcon.innerHTML = '🌙 Modo Oscuro';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+            localStorage.setItem('luxtime_theme', currentTheme);
+            applyTheme(currentTheme);
+        }
+
+        // Inicializar con el paso 0
+        applyTheme(localStorage.getItem('luxtime_theme') || 'dark');
+        setStep(0);
+    </script>
 </body>
 </html>
