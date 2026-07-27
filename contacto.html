@@ -5,55 +5,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUXTIME | Contáctenos</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #0b0b0d; color: #e1e1e6; line-height: 1.6; }
-        nav { position: fixed; top: 0; width: 100%; background: rgba(15, 15, 18, 0.95); border-bottom: 1px solid rgba(212, 175, 55, 0.2); z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 50px; }
-        .logo { color: #d4af37; font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
-        .nav-links { display: flex; list-style: none; gap: 30px; }
-        .nav-links a { color: #c4c4cc; text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-links a.active { color: #d4af37; }
+        :root {
+            --bg-color: #0b0b0d;
+            --card-bg: #141418;
+            --text-color: #e1e1e6;
+            --text-muted: #8d8d99;
+            --border-color: #2a2a30;
+            --accent-gold: #d4af37;
+            --accent-hover: #f0c442;
+            --nav-bg: rgba(15, 15, 18, 0.95);
+            --input-bg: #1a1a20;
+        }
 
-        section { padding: 120px 20px 80px; max-width: 800px; margin: 0 auto; text-align: center; }
-        h1 { font-size: 2.5rem; color: #d4af37; letter-spacing: 4px; margin-bottom: 40px; text-transform: uppercase; }
-        
-        .box-contacto { background: #141418; border: 1px solid #23232a; padding: 40px; border-radius: 8px; }
-        .info-item { margin: 20px 0; font-size: 1.2rem; }
-        .info-item strong { color: #d4af37; display: block; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase; }
-        
-        footer { text-align: center; padding: 30px; border-top: 1px solid #23232a; color: #737380; margin-top: 50px; }
+        body.light-mode {
+            --bg-color: #f4f4f7;
+            --card-bg: #ffffff;
+            --text-color: #1a1a1e;
+            --text-muted: #5a5a66;
+            --border-color: #e1e1e6;
+            --accent-gold: #b8860b;
+            --accent-hover: #d4af37;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --input-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+        }
+        .logo { color: var(--accent-gold); font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .theme-toggle-btn:hover { background: var(--accent-gold); color: #0b0b0d; }
+
+        /* Contenedor Principal */
+        .contact-container {
+            max-width: 1000px;
+            margin: 140px auto 60px;
+            padding: 0 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Tarjeta de Contacto */
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        /* Grid de detalles ajustado */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .info-item {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-title {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .info-text {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .info-text a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-text a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Botón de WhatsApp */
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #25d366;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-whatsapp svg {
+            width: 26px;
+            height: 26px;
+            fill: currentColor;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
+
     <nav>
-        <a href="index.html" class="logo">LUXTIME</a>
+        <a href="./" class="logo">LUXTIME</a>
         <ul class="nav-links">
-            <li><a href="index.html">Inicio</a></li>
+            <li><a href="./">Inicio</a></li>
             <li><a href="historia.html">Nuestra Historia</a></li>
             <li><a href="catalogo.html">Catálogo</a></li>
             <li><a href="contacto.html" class="active">Contáctenos</a></li>
+            <li>
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙 Modo Oscuro</span>
+                </button>
+            </li>
         </ul>
     </nav>
 
-    <section>
-        <h1>Contáctenos</h1>
-        <div class="box-contacto">
-            <div class="info-item">
-                <strong>Teléfono / WhatsApp Directo</strong>
-                +57 3209954324
+    <div class="contact-container">
+        <h1>CONTÁCTENOS</h1>
+        <p class="subtitle">Atención personalizada y asesoría en alta relojería de lujo</p>
+
+        <div class="contact-card">
+            <!-- Bloques de Información -->
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-title">Ubicación</div>
+                    <div class="info-text">San Gil, Santander<br>Colombia</div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">👑</span>
+                    <div class="info-title">Fundadores</div>
+                    <div class="info-text">Manuel y Cobos<br><small style="color:var(--text-muted)">Atención Asesorada</small></div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">✉️</span>
+                    <div class="info-title">Correo Electrónico</div>
+                    <div class="info-text"><a href="mailto:54790346688nestor@gmail.com">54790346688nestor@gmail.com</a></div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📱</span>
+                    <div class="info-title">WhatsApp Directo</div>
+                    <div class="info-text">+57 320 995 4324<br><small style="color:var(--text-muted)">Lunes a Sábado</small></div>
+                </div>
             </div>
-            <div class="info-item">
-                <strong>Correo Electrónico</strong>
-                54790346688nestor@gmail.com
-            </div>
-            <div class="info-item">
-                <strong>Ubicación</strong>
-                San Gil, Santander, Colombia
-            </div>
+
+            <!-- Botón Principal Redirección WhatsApp -->
+            <a href="https://wa.me/573209954324?text=Hola%20LUXTIME,%20deseo%20obtener%20asesor%C3%ADa%20personalizada%20sobre%20sus%20relojes." 
+               target="_blank" 
+               class="btn-whatsapp">
+                <svg viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                Contactar por WhatsApp
+            </a>
         </div>
-    </section>
+    </div>
 
     <footer>
         <p>&copy; 2026 LUXTIME. San Gil, Santander.</p>
     </footer>
+
+    <script>
+        // Sistema de Modo Claro / Oscuro Persistente
+        function applyTheme(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.innerHTML = '☀️ Modo Claro';
+            } else {
+                document.body.classList.remove('light-mode');
+                themeIcon.innerHTML = '🌙 Modo Oscuro';
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+            localStorage.setItem('luxtime_theme', currentTheme);
+            applyTheme(currentTheme);
+        }
+
+        // Inicializar
+        applyTheme(localStorage.getItem('luxtime_theme') || 'dark');
+    </script>
 </body>
 </html>
