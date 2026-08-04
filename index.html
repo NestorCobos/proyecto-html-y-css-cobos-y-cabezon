@@ -102,7 +102,7 @@
         .hero-header h1 { font-size: 2.8rem; color: var(--accent-gold); letter-spacing: 5px; font-weight: 700; margin-bottom: 8px; }
         .hero-header p { color: var(--text-muted); font-size: 1.1rem; letter-spacing: 1px; }
 
-        /* CARRUSEL 3D */
+        /* CARRUSEL 3D (PRODUCTOS) */
         .carousel-wrapper {
             position: relative;
             width: 90%;
@@ -240,6 +240,127 @@
         .carousel-arrow.prev { left: -30px; }
         .carousel-arrow.next { right: -30px; }
 
+        /* ========================================== */
+        /* SECCIÓN: TESTIMONIOS (GRID + FLEX + ANIMACIÓN) */
+        /* ========================================== */
+        .testimonials-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .testimonials-header h2 {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .testimonials-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Uso de CSS Grid para organizar las tarjetas de testimonios */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Tarjeta de Testimonio (Uso de Flexbox internamente) */
+        .testimonial-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            animation: testimonialPulse 4s ease-in-out infinite alternate;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Retraso escalonado para darle fluidez a la animación de las tarjetas */
+        .testimonial-card:nth-child(2) { animation-delay: 0.8s; }
+        .testimonial-card:nth-child(3) { animation-delay: 1.6s; }
+        .testimonial-card:nth-child(4) { animation-delay: 2.4s; }
+        .testimonial-card:nth-child(5) { animation-delay: 3.2s; }
+        .testimonial-card:nth-child(6) { animation-delay: 4.0s; }
+
+        @keyframes testimonialPulse {
+            0% { transform: translateY(0); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+            50% { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.5); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15); }
+            100% { transform: translateY(0); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
+            animation-play-state: paused; /* Pausa la animación sutil al hacer hover */
+        }
+
+        .testimonial-body {
+            margin-bottom: 20px;
+        }
+
+        .testimonial-quote {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: "“";
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            line-height: 1;
+        }
+
+        /* Flexbox interno para alinear la imagen y el nombre del cliente */
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .author-info h4 {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            font-weight: 700;
+        }
+
+        .author-info span {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.5px;
+        }
+
         /* Drawer del Carrito */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; }
         .cart-drawer { position: fixed; top: 0; right: -420px; width: 100%; max-width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid var(--border-color); z-index: 2001; transition: right 0.4s ease; display: flex; flex-direction: column; padding: 25px; }
@@ -315,7 +436,7 @@
         .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
         .btn-checkout { display: block; width: 100%; text-align: center; background: #25d366; color: #fff; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 700; text-transform: uppercase; }
 
-        footer { text-align: center; padding: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; }
+        footer { text-align: center; padding: 25px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; margin-top: 40px; }
     </style>
 </head>
 <body>
@@ -351,6 +472,225 @@
         <div class="carousel-container" id="carouselContainer"></div>
         <button class="carousel-arrow next" onclick="nextSlide()">&#10095;</button>
     </div>
+
+   <!-- SECCIÓN DE TESTIMONIOS (CARRUSEL PURO HTML Y CSS) -->
+<section class="testimonials-section">
+    <div class="testimonials-header">
+        <h2>VOCES DE NUESTROS CLIENTES</h2>
+        <p>La experiencia de adquirir alta relojería en LUXTIME a través de quienes ya confían en nosotros</p>
+    </div>
+
+    <!-- Contenedor del Carrusel -->
+    <div class="testimonials-carousel-container">
+        <div class="testimonials-grid">
+            
+            <!-- Testimonio 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"Adquirir mi Rolex Submariner en LuxTime fue una experiencia impecable. ahora tengo a todas las beibis detras mio ."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/482525363_566843482415689_3364219880708179552_n.jpg?ccb=11-4&oh=01_Q5Aa5QF9dm_sKcf9h3C3gh1CHtiy5nhwAGw4Qg3nGJBakAIwTg&oe=6A7F1F7B&_nc_sid=5e03e0&_nc_cat=107" alt="Cliente Didier V.">
+                    <div class="author-info">
+                        <h4>Didier Vallejo</h4>
+                        <span>Milloneta, maluma</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonio 2 -->
+             <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"Adquirir mi Rolex en LuxTime fue una experiencia impecable. gracias a esto resalta mas mi reloj que mi cabezota."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/537524947_1715614045990593_4882193414918108564_n.jpg?ccb=11-4&oh=01_Q5Aa5QF_UkLtpneavFWn5z38kVzPyx5cakULK4T7bDc4A1Hq5Q&oe=6A7F23B5&_nc_sid=5e03e0&_nc_cat=109" alt="Cliente Manuel C.">
+                    <div class="author-info">
+                        <h4>Manuel Cabezon</h4>
+                        <span>Coleccionista de dildos, ciudad gotica</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonio 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"El proceso de compra y envío seguro es digno de la alta relojería que venden. Mi Patek Philippe Calatrava llegó en perfectas condiciones y le compre uno a la traquetica."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/546474467_1354252972736326_3581038858690836269_n.jpg?ccb=11-4&oh=01_Q5Aa5QFzlJci6JSHdy6zl0XLMKekcQXR3EpeCj1HtEsARk1c1Q&oe=6A7F1E4C&_nc_sid=5e03e0&_nc_cat=101" alt="Cliente Joel T.">
+                    <div class="author-info">
+                        <h4>Joel el Traqueto.</h4>
+                        <span>Traqueto, Medellín</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonio 4 -->
+            <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"La asesoría personalizada hace toda la diferencia. me converti en un caballero super elegante como manolito y ahora soy el mas elegante y la pampara de gringo mike's."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/645492689_1666117148761418_6488618548849621990_n.jpg?ccb=11-4&oh=01_Q5Aa5QEdIRCc24TpXIqHm2dPw8MZdAc1C5MUqAifeII3vakqUA&oe=6A7F1141&_nc_sid=5e03e0&_nc_cat=107" alt="Cliente Sergio Super Elegante.">
+                    <div class="author-info">
+                        <h4>Sergio Super Elegante</h4>
+                        <span>Empresario, Barichara</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonio 5 -->
+            <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"Buscaba un modelo específico de Audemars Piguet y el equipo de LuxTime lo consiguió en tiempo récord,para nada por que no tenia la plata ni para un casio pero muy buena atencion. ademas soy amiga de abelardo."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/698200029_872043275695421_3333624997419066354_n.jpg?ccb=11-4&oh=01_Q5Aa5QFvsbxujtSz8Bpls0Cz1TiUqai9j6wXL6rcCOR7mQGtUA&oe=6A7F1AA9&_nc_sid=5e03e0&_nc_cat=106" alt="Cliente Carolina V.">
+                    <div class="author-info">
+                        <h4>Carolina Visajosa</h4>
+                        <span>Visajosa y mejor amiga de abelardo de la mierda, Bucaramanga</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonio 6 -->
+            <div class="testimonial-card">
+                <div class="testimonial-body">
+                    <p class="testimonial-quote">"me robe un rolex con mis poderes de duendes y pude poner mas oro en el caldero al final del arcoiris, soy el duende con mas flow de la villa de los duendes."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://media-bog2-2.cdn.whatsapp.net/v/t61.24694-24/643603287_4190098567801217_8264316370770261881_n.jpg?ccb=11-4&oh=01_Q5Aa5QFKugQTAgNX29rgmIHvcAgoHHzEP15pEufGowd3NZtzeA&oe=6A7F1219&_nc_sid=5e03e0&_nc_cat=102" alt="Cliente Joel D.">
+                    <div class="author-info">
+                        <h4>Joel el Duende Traqueto</h4>
+                        <span>Traqueto, la Villa De Duendes</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ESTILOS CSS REQUERIDOS (Agrégalos en tu archivo .css o dentro de una etiqueta <style>) -->
+<style>
+.testimonials-section {
+    padding: 60px 20px;
+    background-color: #0c0c0c; /* Fondo elegante estilo LuxTime */
+    color: #fff;
+    font-family: inherit;
+}
+
+.testimonials-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.testimonials-header h2 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: #d4af37; /* Tono dorado */
+}
+
+.testimonials-header p {
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.testimonials-carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Propiedades del Carrusel Nativo en CSS Grid / Flex */
+.testimonials-grid {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #1a1a1a;
+    padding: 10px 5px 30px 5px;
+}
+
+/* Estilo personalizado para la barra de desplazamiento inferior */
+.testimonials-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.testimonials-grid::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.testimonials-grid::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 4px;
+}
+
+/* Tarjeta individual del carrusel */
+.testimonial-card {
+    background: #161616;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 30px;
+    min-width: 320px;
+    max-width: 380px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    border-color: #d4af37;
+}
+
+.testimonial-quote {
+    font-style: italic;
+    color: #ddd;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d4af37;
+}
+
+.author-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.author-info span {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .testimonial-card {
+        min-width: 280px;
+    }
+}
+</style>
 
     <!-- DRAWER DEL CARRITO -->
     <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
